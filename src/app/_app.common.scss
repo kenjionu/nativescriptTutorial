@@ -1,0 +1,122 @@
+// @import '~nativescript-theme-core/scss/light';
+// @import '~nativescript-theme-core/scss/index';
+
+// @import "@nativescript/theme/core/scss";
+@import "@nativescript/theme/core";
+
+@import '@nativescript/theme/scss/variables';
+@import './theme/colors';
+
+
+
+$primary: #7c015d;
+$seconday: #2b0c72;
+$disabled: #ccc;
+
+.fa{
+    font-family: "FontAwesome", "Font-Awesome";
+}
+.h1{
+    font-weight: 600;
+    color: $primary;
+    font-family: "Oswald", "Oswald-Regular", "Oswald-Bold";
+}
+
+.body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+.title {
+    font-size: 26;
+    text-align: center;
+    color: #7c015d;
+    font-weight: bold;
+    margin-top: 10;
+  }
+
+Button{
+    width:40%;
+}
+
+$btn-color: $primary;
+
+.dActionBar {
+    background-color: $primary;
+    color: white;
+}
+
+
+.form{
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+        .input-field{
+            width: 80%;   
+        .label{
+            color: $primary;
+            font-weight: bold;
+            font-family: "Oswald", "Oswald-Regular", "Oswald-Bold";
+            &-invalid{
+                color:red;
+            }
+        }
+
+
+        .input{
+            border-bottom-width: 2;
+            border-bottom-color: $primary;
+            width: 100%;
+            color: black;
+        }
+
+        .input.ng-invalid.ng-untouched {
+            color: red;
+            font-weight: bold;
+            border-bottom-color: red;
+          }
+        
+          .invalid{
+            color:red;
+          }
+
+        .btn{
+            background: #7c015d;
+            border-width: 1;
+            border-color:#7c015d;
+            color:white;
+            width: 250;
+            padding: 5 10;
+            border-radius: 30%;
+            margin: 5 0;
+        }
+    }
+}
+
+.drawer-container {
+    background: linear-gradient(140deg, #2b0c72, #5c3fa0);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20;
+    .btn{
+        width: 80%;
+        font-size: 24;
+        height: 45;
+    }
+  }
+  
+.btn {
+background: #7c015d;
+border-width: 1;
+border-color: #7c015d;
+color: white;
+padding: 5 10;
+border-radius: 30%;
+margin: 5 0;
+}
+
+.btn-flat {
+background: transparent;
+border-color: transparent;
+border-width: 1;
+color: $primary;
+}

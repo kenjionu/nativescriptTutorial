@@ -1,44 +1,38 @@
-import { NgModule } from '@angular/core'
-import { NativeScriptRouterModule } from '@nativescript/angular';
+import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
-import { ChallengeTabsComponent } from './challenge-tabs/challenge-tabs.component'
-import { CurrentChallengesComponent } from "./current-challenges-component/current-challenges-component";
-import { TodayComponent } from "./today/today.component";
-import { ChallengeEditComponent } from "./challenge-edit/challenge-edit.component";
+
+
+import { ChallengeTabsComponent } from './challenge-tabs/challenge-tabs.component';
+import { TodayComponent } from './today/today.component';
+import { CurrentChallengeComponent } from './current-challenges-component/current-challenges.component';
+import { NativeScriptRouterModule } from '@nativescript/angular';
+import { ChallengeEditModule } from './challenge-edit/challenge-edit.module'
 
 const routes: Routes = [
   {
     path: 'tabs',
     component: ChallengeTabsComponent,
     children: [
-      { path: 'today', component: TodayComponent, outlet: 'today'},
+      { path: 'today', component: TodayComponent, outlet: 'today' },
       {
         path: 'current-challenge',
-        component: CurrentChallengesComponent,
+        component: CurrentChallengeComponent,
         outlet: 'currentChallenge'
       }
     ]
   },
   {
-    path: ':mode', component: ChallengeEditComponent},
-  { path: '', redirectTo: '/challenges/tabs', pathMatch: 'full'}
+    path: ':mode',
+    loadChildren: () =>  ChallengeEditModule
+ 
+    // loadChildren:
+    //   '~/app/challenges/challenge-edit/challenge-edit.module#ChallengeEditModule'
+  },
+  { path: '', redirectTo: '/challenges/tabs', pathMatch: 'full' }
 ];
-    // { path: 'challenges', children: [
-    //     { path: 'tabs', component: ChallengeTabsComponent, children: [
-    //     { path: 'current-challenge', component: CurrentChallengesComponent, outlet: 'currentChallenge' },
-    //     { path: 'today', component: TodayComponent, outlet: 'today' },
-    //     ]},
-    //     { path: ':mode', component: ChallengeEditComponent},
-    //     { path: '', redirectTo: '/challenges/tabs', pathMatch: 'full'}
-        
-    //   ]
-    // }
-
 
 @NgModule({
   imports: [NativeScriptRouterModule.forChild(routes)],
   exports: [NativeScriptRouterModule]
 })
-export class ChallengeRoutingModule {
-
-}
+export class ChallengesRoutingModule {}

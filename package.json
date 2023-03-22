@@ -16,7 +16,7 @@
     "@nativescript/core": "~8.4.0",
     "@nativescript/theme": "~3.0.2",
     "@types/node": "^18.13.0",
-    "nativescript-ui-sidedrawer": "^14.2.1",
+    "nativescript-ui-sidedrawer": "^15.0.0",
     "rxjs": "~7.6.0",
     "zone.js": "~0.12.0"
   },

@@ -1,55 +1,62 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core'
-import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
-import { RadSideDrawerComponent } from 'nativescript-ui-sidedrawer/angular';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  AfterViewInit,
+  ChangeDetectorRef,
+  ViewContainerRef
+} from '@angular/core';
 import { Subscription } from 'rxjs';
+import { RadSideDrawerComponent } from 'nativescript-ui-sidedrawer/angular';
+import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
+
 import { UIService } from './shared/ui/ui.service';
 
 @Component({
   selector: 'ns-app',
+  moduleId: module.id,
   templateUrl: './app.component.html',
 })
-export class AppComponent implements OnInit, AfterViewInit, OnDestroy{
-  @ViewChild(RadSideDrawerComponent) drawerComponent;
-  activesChallenges: string[] = [];
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild(RadSideDrawerComponent) drawerComponent: RadSideDrawerComponent;
+  activeChallenge = '';
   private drawerSub: Subscription;
   private drawer: RadSideDrawer;
-  private vcRef: ViewContainerRef;
 
-  constructor(private uiService: UIService, private changeDetectionRef: ChangeDetectorRef){
+  constructor(
+    private uiService: UIService,
+    private changeDetectionRef: ChangeDetectorRef,
+    private vcRef: ViewContainerRef
+  ) {}
 
-  }
-  ngOnInit(): void {
-    this.drawerSub = this.uiService.drawerState.subscribe(() =>{ 
-      if(this.drawer){
+  ngOnInit() {
+    this.drawerSub = this.uiService.drawerState.subscribe(() => {
+      if (this.drawer) {
         this.drawer.toggleDrawerState();
       }
     });
     this.uiService.setRootVCRef(this.vcRef);
-    console.log("'toggle sidedrawer")
-    
   }
 
-  ngAfterViewInit(): void {
-
+  ngAfterViewInit() {
     this.drawer = this.drawerComponent.sideDrawer;
 
     this.changeDetectionRef.detectChanges();
   }
 
+  onChallengeInput(challengeDescription: string) {
+    this.activeChallenge = challengeDescription;
+    console.log('onChallengeInput: ', challengeDescription);
+  }
 
-
-  onLogout(){
+  onLogout() {
     this.uiService.toggleDrawer();
   }
 
-  onChallengeInput(challengeDescription: string){
-  this.activesChallenges.push(challengeDescription)
-  console.log(challengeDescription)
-  }
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     if (this.drawerSub) {
       this.drawerSub.unsubscribe();
     }
-    
   }
 }

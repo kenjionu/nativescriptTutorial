@@ -1,35 +1,14 @@
-<!-- <GridLayout>
-  <page-router-outlet></page-router-outlet>
-</GridLayout> -->
-<!-- <StackLayout> -->
-  <!-- <ns-challenge-edit (input)="onChallengeInput($event)">
-    
-  </ns-challenge-edit>
-  <ns-current-challenges [challenges]="activesChallenges"></ns-current-challenges> -->
-  <!-- <router-outlet></router-outlet>
-</StackLayout> -->
-<!-- <StackLayout> -->
-  <!-- <ns-stack-component>
-  </ns-stack-component> -->
-  <!-- <ns-flexbox-component>
-  </ns-flexbox-component> -->
-  <!-- <ns-grid-component>
-  </ns-grid-component> -->
-  <!-- <ns-absolute-component>
-
-  </ns-absolute-component> -->
-<!-- </StackLayout> -->
-<!-- nativescript ui sidedrawer-->
 <RadSideDrawer>
   <FlexboxLayout tkDrawerContent class="drawer-container">
-    <Button text="logout" 
-    class="btn"
-    nsRouterLink="/"
-    [clearHistory]="true"
-    (tap)="onLogout()"></Button>
+    <Button
+      text="Logout"
+      class="btn"
+      nsRouterLink="/"
+      [clearHistory]="true"
+      (tap)="onLogout()"
+    ></Button>
   </FlexboxLayout>
   <StackLayout tkMainContent>
     <page-router-outlet></page-router-outlet>
   </StackLayout>
-
 </RadSideDrawer>

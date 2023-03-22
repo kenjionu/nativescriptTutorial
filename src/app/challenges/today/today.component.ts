@@ -1,5 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core'
-import { RouterExtensions } from '@nativescript/angular';
+import { Component, OnInit } from '@angular/core'
+import { Subscription } from 'rxjs';
+import { ChallengeService } from '../challenges.service'
+import { Day, DayStatus } from '../day.model';
 
 @Component({
   selector: 'ns-today',
@@ -8,23 +10,44 @@ import { RouterExtensions } from '@nativescript/angular';
   moduleId: module.id
 })
 export class TodayComponent implements OnInit {
-    constructor(private router: RouterExtensions){
+  currentDay: Day;
+  private curChallengeSub: Subscription;
+  
+    constructor(private challengeService: ChallengeService){
 
     }
-//     @Output() input = new EventEmitter<string>();
-//     challengeDescription:string;
-//   constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.curChallengeSub = this.challengeService.currentChallenge.subscribe(
+      challenge => {
+        if (challenge) {
+          this.currentDay = challenge.currentDay;
+        }
+      }
+    );
+  }
+  
+
+  onActionSelected(action: DayStatus):void {
+    this.challengeService.updateDayStatus(this.currentDay.dayInMonth, action)
   }
 
-  onSignin(){
-    this.router.navigate(['/items'], { clearHistory: true })
+  getActionName(){
+    if (this.currentDay.status === DayStatus.Completed) {
+      return 'complete';
+    }
+    if (this.currentDay.status === DayStatus.Failed) {
+      return 'fail';
+    }
+    return null;
   }
-//   onSetChallenge(){
-//     this.input.emit(this.challengeDescription)
+  ngOnDestroy(){
+    if(this.curChallengeSub){
+      this.curChallengeSub.unsubscribe();
 
-//   }
+    }
+  }
+
 
 
 }

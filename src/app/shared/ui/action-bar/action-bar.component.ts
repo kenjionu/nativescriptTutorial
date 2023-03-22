@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { RouterExtensions } from '@nativescript/angular';
 import { Page } from '@nativescript/core/ui/page';
 import { isAndroid } from '@nativescript/core';
 import { UIService } from '../ui.service';
+import { RouterExtensions } from '@nativescript/angular';
 declare var android: any;
 
 @Component({
@@ -14,7 +14,6 @@ declare var android: any;
 export class ActionBarUIComponent implements OnInit {
   constructor(private router: RouterExtensions, private page: Page,
     private uiService: UIService) {}
-  // @Input() challenges: string[] = [];  
   @Input() title: string[] = [];
   @Input() showBackButton = true;
   @Input() hasMenu = true;
@@ -38,8 +37,14 @@ onLoadedActionBar(){
     if (isAndroid){
       const androidToolbar = this.page.actionBar.nativeView;
       const backButton = androidToolbar.getNavigationIcon();
+      let color = '#171717';
+    if(this.hasMenu) {
+      color = '#FFFFFF';
+    }
       if(backButton){
-        backButton.setColorFilter(android.graphics.Color.parseColor('#171717'), (<any>android.graphics).PorterDuff.Mode.SRC_ATOP);
+        backButton.setColorFilter(
+          android.graphics.Color.parseColor(color), 
+          (<any>android.graphics).PorterDuff.Mode.SRC_ATOP);
       }
     }
   }

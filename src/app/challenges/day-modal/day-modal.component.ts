@@ -1,25 +1,36 @@
-import { Component, OnInit} from '@angular/core'
-import { ModalDialogParams, RouterExtensions } from '@nativescript/angular';
+import { Component, OnInit } from '@angular/core';
+import { ModalDialogParams } from '@nativescript/angular';
 
-declare var android: any;
+import { DayStatus } from '../day.model';
 
 @Component({
-  selector: 'ns-day.modal',
-  styleUrls: ['./day-modal.component.scss'],
+  selector: 'ns-day-modal',
   templateUrl: './day-modal.component.html',
+  styleUrls: ['./day-modal.component.scss'],
   moduleId: module.id
 })
-export class DayModalComponent implements OnInit{
+export class DayModalComponent implements OnInit {
   loadedDate: Date;
-  constructor(
-    private router: RouterExtensions,
-    private modalParams: ModalDialogParams) {}
-  // @Input() challenges: string[] = [];  
+  loadedStatus: 'complete' | 'fail' = null;
 
-  ngOnInit():void{
-    this.loadedDate = (this.modalParams.context as {date: Date}).date
+  constructor(private modalParams: ModalDialogParams) {}
+
+  ngOnInit() {
+    const parsedParams = this.modalParams.context as {
+      date: Date;
+      status: DayStatus;
+    };
+    this.loadedDate = parsedParams.date;
+    if (parsedParams.status === DayStatus.Completed) {
+      this.loadedStatus = 'complete';
+    } else if (parsedParams.status === DayStatus.Failed) {
+      this.loadedStatus = 'fail';
+    } else {
+      this.loadedStatus = null;
+    }
   }
-  onHandleInput(action: string):void{
-    this.modalParams.closeCallback(action)
+
+  onHandleInput(action: DayStatus) {
+    this.modalParams.closeCallback(action);
   }
 }

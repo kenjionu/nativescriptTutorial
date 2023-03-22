@@ -1,19 +1,4 @@
-TextField {
-    width: 66%;
-}
 
-Button {
+@import '../../theme/colors';
+@import '../../app.common';
 
-    width: 33%;
-}
-
-.btn{
-    background: #7c015d;
-    border-width: 1;
-    border-color:#7c015d;
-    color:white;
-    width: 250;
-    padding: 5 10;
-    border-radius: 30%;
-    margin: 5 0;
-}

@@ -1,24 +1,19 @@
-import { NgModule } from '@angular/core'
-import { Routes } from '@angular/router'
-import { NativeScriptRouterModule } from '@nativescript/angular'
+import { NgModule } from '@angular/core';
+import { Routes } from '@angular/router';
 
+import { NativeScriptRouterModule } from '@nativescript/angular';
 
-import { AuthComponent } from './auth/auth.component'
+import { AuthComponent } from './auth/auth.component';
 
 const routes: Routes = [
-  // { path: '', redirectTo: '/items', pathMatch: 'full' },
-  // { path: '', redirectTo: '/auth', pathMatch: 'full' },
   { path: '', component: AuthComponent },
-  { path: 'challenges',
-    loadChildren: () => import("./challenges/challenges.module").then(m => m.ChallengesModule)
-  },
-
-
-
-]
+  {
+    path: 'challenges',
+    loadChildren: () => import("../app/challenges/challenges.module").then(m => m.ChallengesModule)},
+];
 
 @NgModule({
   imports: [NativeScriptRouterModule.forRoot(routes)],
-  exports: [NativeScriptRouterModule],
+  exports: [NativeScriptRouterModule]
 })
 export class AppRoutingModule {}

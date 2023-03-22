@@ -4,24 +4,49 @@
 [hasMenu]="false">
 </ns-action-bar>
 
-<FlexboxLayout justifyContent="space-between">
+<FlexboxLayout class="form" flexDirection="column" [formGroup]="formChallengeEdit">
 
-<!-- <TextField
-row="0"
-col="0"
-class="form-control"
-[(ngModel)]="challengeDescription"
-text="Challenge Title">
-
-</TextField>
-<Button
-row="0"
-col="1"
-class="btn"
-(tap)="onSetChallenge()"
-text="Add Challenge">
-
-</Button> -->
-<Label text="The edit page" ></Label>
-
+    <StackLayout class="input-field">
+        <Label 
+        class="label" 
+        text="Title" 
+        textWrap="true"
+        [ngClass]="{invalid: !formChallengeEdit.controls.title.valid && formChallengeEdit.controls.title.touched}">
+        </Label>
+        <TextField 
+        formControlName="title"
+        returnKeyType="next" 
+        required  
+        class="input" 
+        [(ngModel)]="title"
+        >
+        </TextField>
+        <Label 
+        [ngClass]="{invalid: !formChallengeEdit.controls.title.valid && formChallengeEdit.controls.title.touched}"
+        *ngIf="!formChallengeEdit.controls.title.valid && formChallengeEdit.controls.title.touched" 
+        text="Please enter a valid title"
+        >
+        </Label>
+    </StackLayout>
+    <StackLayout class="input-field">
+        <Label class="label" text="Description" textWrap="true" [ngClass]="{invalid: !formChallengeEdit.controls.description.valid && formChallengeEdit.controls.description.touched}"></Label>
+        <TextField 
+        hint="" 
+        text="" 
+        class="input" 
+        returnKeyType="done" 
+        formControlName="description"
+         required></TextField>
+        <Label 
+        [ngClass]="{invalid: !formChallengeEdit.controls.description.valid && formChallengeEdit.controls.description.touched}"
+        *ngIf="!formChallengeEdit.controls.description.valid && formChallengeEdit.controls.description.touched" 
+        text="Please enter a valid description">
+        </Label>
+    </StackLayout>
+    <Button 
+    class="btn btn-primary" 
+    text="Save" 
+    [isEnabled]="formChallengeEdit.controls.title.valid && formChallengeEdit.controls.description.valid"
+    (tap)="onSubmit(formChallengeEdit.controls.title.value, formChallengeEdit.controls.description.value)"></Button>
 </FlexboxLayout>
+
